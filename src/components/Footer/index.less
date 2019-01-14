@@ -1,0 +1,66 @@
+@import '../../constants';
+
+.footer {
+  overflow: hidden;
+  padding-left: @contentMarginLeft;
+  font-family: "Gotham Pro";
+  background: @footerBackground;
+  color: @white;
+
+  &__contacts {
+    margin-top: 2em;
+
+    &__phone {
+      margin-right: 12.4vw;
+    }
+
+    &__email {
+      color: @textBlue;
+      text-decoration: underline;
+    }
+
+    &__address {
+      float: left;
+      clear: left;
+      margin-top: 6.7vw;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    &--margined-bottom {
+      margin-bottom: 2.6em;
+    }
+  }
+
+  &__time {
+    margin-left: 8.5em;
+
+    &__img {
+      margin-top: -3em;
+    }
+  }
+
+  &__dev {
+    width: 26em;
+    position: relative;
+    clear: both;
+    bottom: 5vw;
+    margin-bottom: 5.8vw;
+    padding-left: 30px;
+    font-family: 'Geometria';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+
+    &__studio {
+      color: @textBlue;
+    }
+  }
+
+  &--floated {
+    float: left;
+    overflow: auto;
+    font-size: 24px;
+  }
+}

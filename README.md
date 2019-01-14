@@ -1,2 +1,1 @@
 # webpack-react-boilerplate
-# CubeXTest
