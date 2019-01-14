@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { string } from "prop-types";
 import classNames from "classnames";
 
+import UsersList from './UsersList';
+import UserCard from './UserCard';
+
 import classes from './index.less';
 
 class PhoneBook extends Component {
@@ -14,7 +17,8 @@ class PhoneBook extends Component {
 
         return (
           <div className={classes.phoneBook}>
-            InnerText
+            <UsersList />
+            <UserCard />
           </div>
     )
   }
