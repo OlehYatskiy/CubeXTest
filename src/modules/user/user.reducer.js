@@ -42,6 +42,10 @@ const reducer = {
 		...state,
 		usersSendStatus: "success"
 	}),
+	[actions.myAddNewUser]: (state, user) => ({
+		...state,
+		users: [...state.users, user]
+	}),
 	[actions.getAllUsers]: (state) => ({
 		...state,
 		users: [
@@ -51,7 +55,7 @@ const reducer = {
 				phone: '80689063846',
 				email: 'helen@mail.ru',
 				company: 'AllSafe',
-				photo: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'
+				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'
 			},
 			{
 				firstName: 'Piter',
@@ -59,7 +63,7 @@ const reducer = {
 				phone: '80689064446',
 				email: 'piter@mail.ru',
 				company: 'AllSafe',
-				photo: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'
 			},
 			{
 				firstName: 'Eliot',
@@ -67,7 +71,7 @@ const reducer = {
 				phone: '80689063846',
 				email: 'shtruz@mail.ru',
 				company: 'BuyMore',
-				photo: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
 			},
 		]
 	})

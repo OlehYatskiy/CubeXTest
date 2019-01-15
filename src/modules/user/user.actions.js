@@ -13,3 +13,4 @@ export const addNewUserStatus = createAction('add new user status');
 
 //My actions
 export const getAllUsers = createAction('get all user');
+export const myAddNewUser = createAction('my add new user');

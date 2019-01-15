@@ -41,7 +41,7 @@ class UsersList extends Component {
               {
                 usersData.map((user) => {
                   return <List.Item>
-                    <Image avatar src={user.photo} />
+                    <Image avatar src={user.avatarUrl} />
                     <List.Content>
                       <List.Header>{`${user.firstName} ${user.lastName}`}</List.Header>
                     </List.Content>

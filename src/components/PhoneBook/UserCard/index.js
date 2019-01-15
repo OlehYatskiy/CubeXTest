@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { string } from "prop-types";
-import classNames from "classnames";
+import { connect } from "react-redux";
 
+import * as userActions from "../../../modules/user/user.actions";
+
+import classNames from "classnames";
 import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
 
 // import classes from './index.less';
@@ -9,12 +12,54 @@ import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
 class UserCard extends Component {
 
   state = {
-    editToggle: true
+    editToggle: false,
+    firstName: '',
+    lastName: '',
+    avatarUrl: '',
+    phoneNum: '',
+    email: '',
+    company: ''
   }
 
   static propTypes = {
 
 	}
+
+  onEditButtonClick = () => {
+    this.setState({
+      editToggle: true
+    });
+  }
+
+  onCancelButtonClick = () => {
+    this.setState({
+      editToggle: false,
+      firstName: '',
+      lastName: '',
+      avatarUrl: '',
+      phoneNum: '',
+      email: '',
+      company: ''
+    });
+  }
+
+  onInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  onApplyButtonClick = () => {
+    this.props.myAddNewUser({
+      firstName: this.state.firstName,
+  		lastName: this.state.lastName,
+  		avatarUrl: this.state.avatarUrl,
+      phoneNum: this.state.phoneNum,
+      email: this.state.email,
+      company: this.state.company,
+    });
+    this.onCancelButtonClick();
+  }
 
     render() {
       const { editToggle } = this.state;
@@ -32,37 +77,43 @@ class UserCard extends Component {
                   <Segment>current email</Segment>
                   <Segment>current company</Segment>
                 </Segment.Group>
-                <Button floated='right' content='Edit' icon='pencil alternate' labelPosition='left'/>
+                <Button
+                  onClick={this.onEditButtonClick}
+                  floated='right'
+                  content='Edit'
+                  icon='pencil alternate'
+                  labelPosition='left'
+                  />
               </Fragment>
               :
               <Segment.Group>
                 <Segment basic floated='right'>
                   Firstname:
-                  <Input></Input>
+                  <Input onChange={this.onInputChange} name='firstName' />
                 </Segment>
                 <Segment basic floated='right'>
                   Lastname:
-                  <Input />
+                  <Input onChange={this.onInputChange} name='lastName' />
                 </Segment>
                 <Segment basic floated='right'>
-                  Photo:
-                  <Input />
+                  AvatarUrl:
+                  <Input onChange={this.onInputChange} name='avatarUrl' />
                 </Segment>
                 <Segment basic floated='right'>
                   Phone number:
-                  <Input />
+                  <Input onChange={this.onInputChange} name='phoneNum' />
                 </Segment>
                 <Segment basic floated='right'>
                   Email:
-                  <Input />
+                  <Input onChange={this.onInputChange} name='email' />
                 </Segment>
                 <Segment basic floated='right'>
                   Company:
-                  <Input />
+                  <Input onChange={this.onInputChange} name='company' />
                 </Segment>
                 <Segment basic floated='right'>
-                  <Button basic floated='left' content='Cancel' />
-                  <Button content='Apply' color='green' />
+                  <Button onClick={this.onCancelButtonClick} basic floated='left' content='Cancel' />
+                  <Button onClick={this.onApplyButtonClick} content='Apply' color='green' />
                 </Segment>
               </Segment.Group>
             }
@@ -71,4 +122,10 @@ class UserCard extends Component {
       )}
 }
 
-export default UserCard;
+function mapStateToProps({ user }) {
+	return {
+
+	};
+}
+
+export default connect(mapStateToProps, { ...userActions })(UserCard);
