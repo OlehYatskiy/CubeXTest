@@ -42,6 +42,35 @@ const reducer = {
 		...state,
 		usersSendStatus: "success"
 	}),
+	[actions.getAllUsers]: (state) => ({
+		...state,
+		users: [
+			{
+				firstName: 'Helen',
+				lastName: 'Palmer',
+				phone: '80689063846',
+				email: 'helen@mail.ru',
+				company: 'AllSafe',
+				photo: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'
+			},
+			{
+				firstName: 'Piter',
+				lastName: 'Palmer',
+				phone: '80689064446',
+				email: 'piter@mail.ru',
+				company: 'AllSafe',
+				photo: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+			},
+			{
+				firstName: 'Eliot',
+				lastName: 'Shtruz',
+				phone: '80689063846',
+				email: 'shtruz@mail.ru',
+				company: 'BuyMore',
+				photo: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+			},
+		]
+	})
 };
 
 

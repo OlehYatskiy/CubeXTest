@@ -10,3 +10,6 @@ export const unselectUser = createAction("unselect user");
 export const addUserProperties = createAction('add user properties');
 export const addNewUser = createAction('add new user');
 export const addNewUserStatus = createAction('add new user status');
+
+//My actions
+export const getAllUsers = createAction('get all user');
