@@ -17,7 +17,7 @@ class UserListItem extends Component {
 	}
 
   onUserItemClick = (index) => (event) => {
-		// event.stopPropagation();
+		event.stopPropagation();
 		this.props.onUserClick(index);
 	}
 

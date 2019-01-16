@@ -56,7 +56,7 @@ const reducer = {
 				phone: '80689063846',
 				email: 'helen@mail.ru',
 				company: 'AllSafe',
-				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'
+				avatarUrl: 'https://s1.1zoom.ru/prev2/511/510537.jpg'
 			},
 			{
 				id:'567',
@@ -65,7 +65,7 @@ const reducer = {
 				phone: '80689064446',
 				email: 'piter@mail.ru',
 				company: 'AllSafe',
-				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+				avatarUrl: 'https://gta5.su/wp-content/uploads/2013/12/v_jimmy_256x256.jpg'
 			},
 			{
 				id:'290',
@@ -74,7 +74,7 @@ const reducer = {
 				phone: '806890634446',
 				email: 'shtruz@mail.ru',
 				company: 'BuyMore',
-				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+				avatarUrl: 'https://gta5.su/wp-content/uploads/2013/12/v_franklin_256x256.jpg'
 			},
 		]
 	})

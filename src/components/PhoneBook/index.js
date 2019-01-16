@@ -9,16 +9,37 @@ import classes from './index.less';
 
 class PhoneBook extends Component {
 
+  state = {
+    userCard: false
+  }
+
   static propTypes = {
 
 	}
 
+  toggleUserCard = (id) => {
+    this.setState({
+      userCard: !!id
+    });
+    // if (id) {
+    //   this.setState({
+    //     userCard: true
+    //   });
+    // } else {
+    //
+    // }
+  }
+
     render() {
+      const { userCard } = this.state;
 
         return (
           <div className={classes.phoneBook}>
-            <UsersList />
-            <UserCard />
+            <UsersList toggleUserCard={this.toggleUserCard} />
+              {
+                userCard &&
+                <UserCard toggleUserCard={this.toggleUserCard} />
+              }
           </div>
     )
   }

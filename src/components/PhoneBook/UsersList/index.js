@@ -20,13 +20,14 @@ import classNames from "classnames";
 class UsersList extends Component {
 
   state = {
-		selectedBlockId: null,
 		searchInput: ""
 	}
 
   static propTypes = {
     usersData: array,
-    getAllUsers: func
+    getAllUsers: func,
+    selectUser: func,
+    toggleUserCard: func,
 	}
 
   componentDidMount() {
@@ -40,18 +41,14 @@ class UsersList extends Component {
 	}
 
   onUserClick = (index) => {
-    console.log(index);
-    // if (index !== this.state.selectedBlockId) {
-    //   this.setState({
-		// 		selectedBlockId: index
-		// 	});
-    // }
-    // console.log(this.state.selectedBlockId);
+    this.props.selectUser(index);
+    this.props.toggleUserCard(index);
   }
 
     render() {
       const { usersData } = this.props;
       const { searchInput } = this.state;
+
       const regSearchInput = new RegExp(searchInput, 'i');
       const filteredValue = searchInput === "" ?
         usersData
@@ -87,7 +84,8 @@ class UsersList extends Component {
 
 function mapStateToProps({ user }) {
 	return {
-		usersData: user.users
+		usersData: user.users,
+    selectUser: user.selectUser
 	};
 }
 

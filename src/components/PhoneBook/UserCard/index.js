@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { string } from "prop-types";
+import { string, array, func } from "prop-types";
 import { connect } from "react-redux";
 
 import EditUserForm from './EditUserForm';
@@ -24,8 +24,16 @@ class UserCard extends Component {
   }
 
   static propTypes = {
-
+    selectUserID: string,
+    usersData: array,
+    unselectUser: func,
+    toggleUserCard: func
 	}
+
+  componentWillUnmount() {
+    this.props.unselectUser();
+    console.log(this.props.selectUserID);
+  }
 
   onShowEditUserForm = () => {
     this.setState({
@@ -33,24 +41,41 @@ class UserCard extends Component {
     });
   }
 
+  onHideUserCard = () => {
+    //this.props.unselectUser();
+    this.props.toggleUserCard();
+  }
+
     render() {
+      const { usersData, selectUserID } = this.props;
       const { showEditUserForm } = this.state;
+      const selectedUserDataIndex = usersData.findIndex((user) => {
+  			return user.id === selectUserID;
+  		});
 
       return (
         <Card>
-          <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+          <Image fluid src={usersData[selectedUserDataIndex].avatarUrl} />
           <Card.Content>
             {
               showEditUserForm === false ?
               <Fragment>
-                <Card.Header>Current Name</Card.Header>
+                <Card.Header>
+                  {
+                    `${usersData[selectedUserDataIndex].firstName}
+                     ${usersData[selectedUserDataIndex].lastName}`
+                  }
+                </Card.Header>
                 <Segment.Group>
-                  <Segment>current phone number</Segment>
-                  <Segment>current email</Segment>
-                  <Segment>current company</Segment>
+                  <Segment>{usersData[selectedUserDataIndex].phone}</Segment>
+                  <Segment>{usersData[selectedUserDataIndex].email}</Segment>
+                  <Segment>{usersData[selectedUserDataIndex].company}</Segment>
                 </Segment.Group>
-                <Button
-                  onClick={this.onShowEditUserForm}
+                <Button onClick={this.onHideUserCard}
+                  floated='left'
+                  icon='arrow left'
+                  />
+                <Button onClick={this.onShowEditUserForm}
                   floated='right'
                   content='Edit'
                   icon='pencil alternate'
@@ -67,7 +92,8 @@ class UserCard extends Component {
 
 function mapStateToProps({ user }) {
 	return {
-
+    selectUserID: user.selectUser,
+    usersData: user.users
 	};
 }
 
