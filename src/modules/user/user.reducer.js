@@ -68,7 +68,7 @@ const reducer = {
 			{
 				firstName: 'Eliot',
 				lastName: 'Shtruz',
-				phone: '80689063846',
+				phone: '806890634446',
 				email: 'shtruz@mail.ru',
 				company: 'BuyMore',
 				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg'

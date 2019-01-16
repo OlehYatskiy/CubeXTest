@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { func } from "prop-types";
 import { connect } from "react-redux";
 
-import * as userActions from "../../../modules/user/user.actions";
+import * as userActions from "../../../../modules/user/user.actions";
 
 import classNames from "classnames";
 import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
@@ -17,24 +17,48 @@ class EditUserForm extends Component {
     avatarUrl: '',
     phoneNum: '',
     email: '',
-    company: ''
+    company: '',
+    isActiveApplyButton: false,
+    validFirstName: undefined,
   }
 
   static propTypes = {
     renderEditUserForm: func
 	}
 
-  onCancelButtonClick = () => {
+  onInputChange = (event) => {
+    const {
+      firstName,
+      lastName,
+      avatarUrl,
+      phoneNum,
+      email,
+      company,
+      isActiveApplyButton,
+      validFirstName
+    } = this.state;
+
     this.setState({
-      editToggle: false,
+      [event.target.name]: event.target.value,
+      isActiveApplyButton: !!firstName &&
+       !!lastName &&
+       !!avatarUrl &&
+       !!phoneNum &&
+       !!email &&
+       !!company,
+       validFirstName: (firstName === '') ? false : true
     });
+    //console.log(validFirstName);
+    // console.log(isActiveApplyButton);
+
   }
 
-  onInputChange = (event) => {
+  /*validateInputs = () => {
+
     this.setState({
-      [event.target.name]: event.target.value
+      validFirstName: ((firstName === '') && (firstName === ' ')) ? false : true
     });
-  }
+  }*/
 
   onApplyButtonClick = () => {
     this.props.myAddNewUser({
@@ -45,11 +69,11 @@ class EditUserForm extends Component {
       email: this.state.email,
       company: this.state.company,
     });
-    this.onCancelButtonClick();
+    this.props.renderEditUserForm();
   }
 
     render() {
-      const { editToggle } = this.state;
+      const { renderEditUserForm } = this.props;
 
       return (
         <Segment.Group>
@@ -78,7 +102,7 @@ class EditUserForm extends Component {
             <Input onChange={this.onInputChange} name='company' />
           </Segment>
           <Segment basic floated='right'>
-            <Button onClick={this.onCancelButtonClick} basic floated='left' content='Cancel' />
+            <Button onClick={renderEditUserForm} basic floated='left' content='Cancel' />
             <Button onClick={this.onApplyButtonClick} content='Apply' color='green' />
           </Segment>
         </Segment.Group>

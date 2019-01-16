@@ -17,6 +17,11 @@ import classNames from "classnames";
 
 class UsersList extends Component {
 
+  state = {
+		selectedBlockId: null,
+		searchInput: ""
+	}
+
   static propTypes = {
     usersData: array,
     getAllUsers: func
@@ -24,22 +29,37 @@ class UsersList extends Component {
 
   componentDidMount() {
     this.props.getAllUsers();
-    console.log(this.props);
   }
+
+  onInputChange = (event) => {
+		this.setState({
+			searchInput: event.target.value
+		})
+	}
 
     render() {
       const { usersData } = this.props;
+      const { searchInput } = this.state;
+      const regSearchInput = new RegExp(searchInput, 'i');
+      const filteredValue = searchInput === "" ?
+        usersData
+        :
+        usersData.filter(element =>
+          (element.firstName.search(regSearchInput) !== -1) ||
+          (element.lastName.search(regSearchInput) !== -1) ||
+          (element.phone.search(regSearchInput) !== -1)
+        );
 
         return (
           <Container>
             <Input
+              onChange={this.onInputChange}
               icon={{ name: 'search', circular: true, link: true }}
               placeholder='Search...' >
-              {/*Search input value*/}
             </Input>
             <List selection divided verticalAlign='middle'>
               {
-                usersData.map((user) => {
+                filteredValue.map((user) => {
                   return <List.Item>
                     <Image avatar src={user.avatarUrl} />
                     <List.Content>

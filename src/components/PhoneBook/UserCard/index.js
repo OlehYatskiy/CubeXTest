@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { string } from "prop-types";
 import { connect } from "react-redux";
 
+import EditUserForm from './EditUserForm';
+
 import * as userActions from "../../../modules/user/user.actions";
 
 import classNames from "classnames";
@@ -12,7 +14,7 @@ import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
 class UserCard extends Component {
 
   state = {
-    editToggle: false,
+    showEditUserForm: false,
     firstName: '',
     lastName: '',
     avatarUrl: '',
@@ -25,51 +27,21 @@ class UserCard extends Component {
 
 	}
 
-  onEditButtonClick = () => {
+  onShowEditUserForm = () => {
     this.setState({
-      editToggle: true
+      showEditUserForm: !this.state.showEditUserForm
     });
-  }
-
-  onCancelButtonClick = () => {
-    this.setState({
-      editToggle: false,
-      firstName: '',
-      lastName: '',
-      avatarUrl: '',
-      phoneNum: '',
-      email: '',
-      company: ''
-    });
-  }
-
-  onInputChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  onApplyButtonClick = () => {
-    this.props.myAddNewUser({
-      firstName: this.state.firstName,
-  		lastName: this.state.lastName,
-  		avatarUrl: this.state.avatarUrl,
-      phoneNum: this.state.phoneNum,
-      email: this.state.email,
-      company: this.state.company,
-    });
-    this.onCancelButtonClick();
   }
 
     render() {
-      const { editToggle } = this.state;
+      const { showEditUserForm } = this.state;
 
       return (
         <Card>
           <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
           <Card.Content>
             {
-              editToggle === false ?
+              showEditUserForm === false ?
               <Fragment>
                 <Card.Header>Current Name</Card.Header>
                 <Segment.Group>
@@ -78,7 +50,7 @@ class UserCard extends Component {
                   <Segment>current company</Segment>
                 </Segment.Group>
                 <Button
-                  onClick={this.onEditButtonClick}
+                  onClick={this.onShowEditUserForm}
                   floated='right'
                   content='Edit'
                   icon='pencil alternate'
@@ -86,36 +58,7 @@ class UserCard extends Component {
                   />
               </Fragment>
               :
-              <Segment.Group>
-                <Segment basic floated='right'>
-                  Firstname:
-                  <Input onChange={this.onInputChange} name='firstName' />
-                </Segment>
-                <Segment basic floated='right'>
-                  Lastname:
-                  <Input onChange={this.onInputChange} name='lastName' />
-                </Segment>
-                <Segment basic floated='right'>
-                  AvatarUrl:
-                  <Input onChange={this.onInputChange} name='avatarUrl' />
-                </Segment>
-                <Segment basic floated='right'>
-                  Phone number:
-                  <Input onChange={this.onInputChange} name='phoneNum' />
-                </Segment>
-                <Segment basic floated='right'>
-                  Email:
-                  <Input onChange={this.onInputChange} name='email' />
-                </Segment>
-                <Segment basic floated='right'>
-                  Company:
-                  <Input onChange={this.onInputChange} name='company' />
-                </Segment>
-                <Segment basic floated='right'>
-                  <Button onClick={this.onCancelButtonClick} basic floated='left' content='Cancel' />
-                  <Button onClick={this.onApplyButtonClick} content='Apply' color='green' />
-                </Segment>
-              </Segment.Group>
+              <EditUserForm renderEditUserForm={this.onShowEditUserForm} />
             }
           </Card.Content>
         </Card>
