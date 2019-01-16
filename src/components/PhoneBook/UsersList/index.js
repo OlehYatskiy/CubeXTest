@@ -9,6 +9,8 @@ import {
   Button
 } from 'semantic-ui-react';
 
+import UserListItem from '../UserListItem';
+
 import * as userActions from "../../../modules/user/user.actions";
 
 import classNames from "classnames";
@@ -37,6 +39,16 @@ class UsersList extends Component {
 		})
 	}
 
+  onUserClick = (index) => {
+    console.log(index);
+    // if (index !== this.state.selectedBlockId) {
+    //   this.setState({
+		// 		selectedBlockId: index
+		// 	});
+    // }
+    // console.log(this.state.selectedBlockId);
+  }
+
     render() {
       const { usersData } = this.props;
       const { searchInput } = this.state;
@@ -60,13 +72,11 @@ class UsersList extends Component {
             <List selection divided verticalAlign='middle'>
               {
                 filteredValue.map((user) => {
-                  return <List.Item>
-                    <Image avatar src={user.avatarUrl} />
-                    <List.Content>
-                      <List.Header>{`${user.firstName} ${user.lastName}`}</List.Header>
-                    </List.Content>
-                    <Button floated='right' icon='delete'/>
-                  </List.Item>
+                  return <UserListItem key={user.id}
+                      onUserClick={this.onUserClick}
+                      index={user.id}
+                      userData={user}
+                    />
                 })
               }
             </List>

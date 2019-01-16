@@ -50,6 +50,7 @@ const reducer = {
 		...state,
 		users: [
 			{
+				id:'121',
 				firstName: 'Helen',
 				lastName: 'Palmer',
 				phone: '80689063846',
@@ -58,6 +59,7 @@ const reducer = {
 				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'
 			},
 			{
+				id:'567',
 				firstName: 'Piter',
 				lastName: 'Palmer',
 				phone: '80689064446',
@@ -66,6 +68,7 @@ const reducer = {
 				avatarUrl: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'
 			},
 			{
+				id:'290',
 				firstName: 'Eliot',
 				lastName: 'Shtruz',
 				phone: '806890634446',
