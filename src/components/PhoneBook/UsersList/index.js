@@ -6,7 +6,8 @@ import {
   Image,
   Container,
   Input,
-  Button
+  Button,
+  Segment
 } from 'semantic-ui-react';
 
 import UserListItem from '../UserListItem';
@@ -77,6 +78,13 @@ class UsersList extends Component {
                 })
               }
             </List>
+            <Container textAlign='center'>
+              <Button onClick={this.props.toggleUserCard}
+                circular
+                basic
+                icon='plus'
+                />
+            </Container>
           </Container>
     )
   }

@@ -19,15 +19,8 @@ class PhoneBook extends Component {
 
   toggleUserCard = (id) => {
     this.setState({
-      userCard: !!id
+      userCard: id === false ? id : true
     });
-    // if (id) {
-    //   this.setState({
-    //     userCard: true
-    //   });
-    // } else {
-    //
-    // }
   }
 
     render() {

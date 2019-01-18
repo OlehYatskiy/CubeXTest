@@ -5,7 +5,8 @@ import {
   Image,
   Content,
   Header,
-  Button
+  Button,
+  Container
 } from 'semantic-ui-react';
 
 class UserListItem extends Component {

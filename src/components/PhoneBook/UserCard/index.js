@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { string, array, func } from "prop-types";
+import { string, array, func, any } from "prop-types";
 import { connect } from "react-redux";
 
 import EditUserForm from './EditUserForm';
@@ -8,23 +8,24 @@ import * as userActions from "../../../modules/user/user.actions";
 
 import classNames from "classnames";
 import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
+import defaultAv from '../../../img/default_av.png';
 
 // import classes from './index.less';
 
 class UserCard extends Component {
 
+  //   constructor(props) {
+  //     super(props);
+  //     // Don't call this.setState() here!
+  //     this.state
+  // }
+
   state = {
-    showEditUserForm: false,
-    firstName: '',
-    lastName: '',
-    avatarUrl: '',
-    phoneNum: '',
-    email: '',
-    company: ''
+    showEditUserForm: this.props.selectUserID === null ? true : false
   }
 
   static propTypes = {
-    selectUserID: string,
+    selectUserID: any,
     usersData: array,
     unselectUser: func,
     toggleUserCard: func
@@ -32,30 +33,33 @@ class UserCard extends Component {
 
   componentWillUnmount() {
     this.props.unselectUser();
-    console.log(this.props.selectUserID);
   }
 
   onShowEditUserForm = () => {
+    if (this.props.selectUserID === null) {this.onHideUserCard()};
     this.setState({
       showEditUserForm: !this.state.showEditUserForm
     });
   }
 
   onHideUserCard = () => {
-    //this.props.unselectUser();
-    this.props.toggleUserCard();
+    this.props.toggleUserCard(false);
   }
 
     render() {
       const { usersData, selectUserID } = this.props;
       const { showEditUserForm } = this.state;
+
       const selectedUserDataIndex = usersData.findIndex((user) => {
   			return user.id === selectUserID;
   		});
 
+      const avatar = selectedUserDataIndex === -1 ?
+       defaultAv : usersData[selectedUserDataIndex].avatarUrl;
+
       return (
         <Card>
-          <Image fluid src={usersData[selectedUserDataIndex].avatarUrl} />
+          <Image fluid src={avatar} />
           <Card.Content>
             {
               showEditUserForm === false ?
@@ -83,7 +87,9 @@ class UserCard extends Component {
                   />
               </Fragment>
               :
-              <EditUserForm renderEditUserForm={this.onShowEditUserForm} />
+              <EditUserForm renderEditUserForm={this.onShowEditUserForm}
+                currentUser={usersData[selectedUserDataIndex]}
+                 />
             }
           </Card.Content>
         </Card>
