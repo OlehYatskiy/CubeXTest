@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { string } from "prop-types";
-import classNames from "classnames";
 
 import UsersList from './UsersList';
 import UserCard from './UserCard';
 
+import { Grid } from 'semantic-ui-react'
 import classes from './index.less';
 
 class PhoneBook extends Component {
@@ -12,10 +11,6 @@ class PhoneBook extends Component {
   state = {
     userCard: false
   }
-
-  static propTypes = {
-
-	}
 
   toggleUserCard = (id) => {
     this.setState({
@@ -27,14 +22,16 @@ class PhoneBook extends Component {
       const { userCard } = this.state;
 
         return (
-          <div className={classes.phoneBook}>
-            {
-               userCard ?
-               <UserCard toggleUserCard={this.toggleUserCard} />
-               :
-               <UsersList toggleUserCard={this.toggleUserCard} />
+          <Grid centered className={classes.phoneBook}>
+            <Grid.Column mobile={16}>
+              {
+                 userCard ?
+                 <UserCard toggleUserCard={this.toggleUserCard} />
+                 :
+                 <UsersList toggleUserCard={this.toggleUserCard} />
               }
-          </div>
+            </Grid.Column>
+          </Grid>
     )
   }
 }

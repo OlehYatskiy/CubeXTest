@@ -182,7 +182,7 @@ class EditUserForm extends Component {
     } else {
       this.props.updateUser(userData, id);
     }
-    
+
     this.props.renderEditUserForm();
   }
 
@@ -278,10 +278,5 @@ class EditUserForm extends Component {
       )}
 }
 
-function mapStateToProps({ user }) {
-	return {
 
-	};
-}
-
-export default connect(mapStateToProps, { ...userActions })(EditUserForm);
+export default connect(null, { ...userActions })(EditUserForm);

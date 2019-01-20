@@ -48,7 +48,7 @@ class UserCard extends Component {
        defaultAv : usersData[selectedUserDataIndex].avatarUrl;
 
       return (
-        <Card>
+        <Card centered>
           <Image fluid src={avatar} />
           <Card.Content>
             {
@@ -89,7 +89,7 @@ class UserCard extends Component {
 function mapStateToProps({ user, customUser }) {
 	return {
     selectUserID: user.selectUser,
-    usersData: customUser
+    usersData: customUser.users
 	};
 }
 

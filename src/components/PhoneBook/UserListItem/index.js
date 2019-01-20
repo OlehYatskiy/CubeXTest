@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { object, string, func } from "prop-types";
+
 import {
   List,
   Image,
@@ -8,6 +9,7 @@ import {
   Button,
   Container
 } from 'semantic-ui-react';
+
 
 class UserListItem extends Component {
 
@@ -25,7 +27,7 @@ class UserListItem extends Component {
 
   onDeleteButtonClick = (index) => (event) => {
     event.stopPropagation();
-    this.props.onDeleteClick(index); 
+    this.props.onDeleteClick(index);
   }
 
     render() {

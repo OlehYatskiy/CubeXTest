@@ -4,10 +4,10 @@ import { string, array, func } from "prop-types";
 import _ from "lodash";
 import {
   List,
-  Image,
   Container,
   Input,
   Button,
+  Grid,
   Segment
 } from 'semantic-ui-react';
 
@@ -65,32 +65,42 @@ class UsersList extends Component {
         );
 
         return (
-          <Container>
-            <Input
-              onChange={this.onInputChange}
-              icon={{ name: 'search', circular: true, link: true }}
-              placeholder='Search...' >
-            </Input>
-            <List selection divided verticalAlign='middle'>
-              {
-                filteredValue.map((user) => {
-                  return <UserListItem key={user.id}
-                      onUserClick={this.onUserClick}
-                      onDeleteClick={this.onDeleteClick}
-                      index={user.id}
-                      userData={user}
+          <Grid centered>
+            <Grid.Row stretched>
+              <Grid.Column widescreen={8} mobile={12} computer={8}>
+                <Grid centered>
+                  <Grid.Column widescreen={8} mobile={16} computer={8}>
+                    <Input
+                      onChange={this.onInputChange}
+                      icon={{ name: 'search', circular: true, link: true }}
+                      placeholder='Search...'
+                      fluid
+                       >
+                    </Input>
+                  </Grid.Column>
+                </Grid>
+                <List selection divided verticalAlign='middle'>
+                  {
+                    filteredValue.map((user) => {
+                      return <UserListItem key={user.id}
+                          onUserClick={this.onUserClick}
+                          onDeleteClick={this.onDeleteClick}
+                          index={user.id}
+                          userData={user}
+                        />
+                    })
+                  }
+                </List>
+                <Container textAlign='center'>
+                  <Button onClick={this.props.toggleUserCard}
+                    circular
+                    basic
+                    icon='plus'
                     />
-                })
-              }
-            </List>
-            <Container textAlign='center'>
-              <Button onClick={this.props.toggleUserCard}
-                circular
-                basic
-                icon='plus'
-                />
-            </Container>
-          </Container>
+                </Container>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
     )
   }
 }
@@ -98,7 +108,7 @@ class UsersList extends Component {
 function mapStateToProps({ user, customUser }) {
 	return {
     selectUser: user.selectUser,
-    usersData: customUser,
+    usersData: customUser.users
 	};
 }
 
