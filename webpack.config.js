@@ -1,10 +1,11 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+// require("@babel/polyfill");
 
 module.exports = {
   devtool: "devtool: 'source-map'",
-  entry: ['./src/index.js'],
+  entry: ["babel-polyfill", './src/index.js'],
   module: {
     rules: [
           {

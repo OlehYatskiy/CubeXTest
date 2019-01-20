@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import * as userActions from "../../../../modules/user/user.actions";
 
-import classNames from "classnames";
 import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
 
 class EditUserForm extends Component {
@@ -160,6 +159,7 @@ class EditUserForm extends Component {
 
   onApplyButtonClick = () => {
     const {
+      id,
       firstName,
       lastName,
       avatarUrl,
@@ -167,15 +167,22 @@ class EditUserForm extends Component {
       email,
       company
     } = this.state;
-    this.props.myAddNewUser({
-      id: Math.floor(Math.random() * 1000).toString(),
+
+    const userData = {
       firstName: firstName,
   		lastName: lastName,
   		avatarUrl: avatarUrl,
       phone: phone,
       email: email,
-      company: company,
-    });
+      company: company
+    }
+
+    if (!id) {
+      this.props.addNewUser(userData);
+    } else {
+      this.props.updateUser(userData, id);
+    }
+    
     this.props.renderEditUserForm();
   }
 

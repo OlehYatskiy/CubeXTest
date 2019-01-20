@@ -3,22 +3,13 @@ import { string, array, func, any } from "prop-types";
 import { connect } from "react-redux";
 
 import EditUserForm from './EditUserForm';
-
 import * as userActions from "../../../modules/user/user.actions";
 
-import classNames from "classnames";
 import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
 import defaultAv from '../../../img/default_av.png';
 
-// import classes from './index.less';
 
 class UserCard extends Component {
-
-  //   constructor(props) {
-  //     super(props);
-  //     // Don't call this.setState() here!
-  //     this.state
-  // }
 
   state = {
     showEditUserForm: this.props.selectUserID === null ? true : false
@@ -47,13 +38,12 @@ class UserCard extends Component {
   }
 
     render() {
-      const { usersData, selectUserID } = this.props;
+      const { selectUserID, usersData } = this.props;
       const { showEditUserForm } = this.state;
 
       const selectedUserDataIndex = usersData.findIndex((user) => {
   			return user.id === selectUserID;
   		});
-
       const avatar = selectedUserDataIndex === -1 ?
        defaultAv : usersData[selectedUserDataIndex].avatarUrl;
 
@@ -96,10 +86,10 @@ class UserCard extends Component {
       )}
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps({ user, customUser }) {
 	return {
     selectUserID: user.selectUser,
-    usersData: user.users
+    usersData: customUser
 	};
 }
 

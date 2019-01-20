@@ -28,10 +28,11 @@ class PhoneBook extends Component {
 
         return (
           <div className={classes.phoneBook}>
-            <UsersList toggleUserCard={this.toggleUserCard} />
-              {
-                userCard &&
-                <UserCard toggleUserCard={this.toggleUserCard} />
+            {
+               userCard ?
+               <UserCard toggleUserCard={this.toggleUserCard} />
+               :
+               <UsersList toggleUserCard={this.toggleUserCard} />
               }
           </div>
     )

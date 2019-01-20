@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { string, array, func } from "prop-types";
+import _ from "lodash";
 import {
   List,
   Image,
@@ -14,9 +15,6 @@ import UserListItem from '../UserListItem';
 
 import * as userActions from "../../../modules/user/user.actions";
 
-import classNames from "classnames";
-
-// import classes from './index.less';
 
 class UsersList extends Component {
 
@@ -26,13 +24,14 @@ class UsersList extends Component {
 
   static propTypes = {
     usersData: array,
-    getAllUsers: func,
+    fetchUsers: func,
     selectUser: func,
     toggleUserCard: func,
+    removeUser: func,
 	}
 
   componentDidMount() {
-    this.props.getAllUsers();
+    this.props.fetchUsers();
   }
 
   onInputChange = (event) => {
@@ -44,6 +43,11 @@ class UsersList extends Component {
   onUserClick = (index) => {
     this.props.selectUser(index);
     this.props.toggleUserCard(index);
+  }
+
+  onDeleteClick = (index) => {
+    this.props.removeUser(index);
+    this.props.fetchUsers();
   }
 
     render() {
@@ -72,6 +76,7 @@ class UsersList extends Component {
                 filteredValue.map((user) => {
                   return <UserListItem key={user.id}
                       onUserClick={this.onUserClick}
+                      onDeleteClick={this.onDeleteClick}
                       index={user.id}
                       userData={user}
                     />
@@ -90,10 +95,10 @@ class UsersList extends Component {
   }
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps({ user, customUser }) {
 	return {
-		usersData: user.users,
-    selectUser: user.selectUser
+    selectUser: user.selectUser,
+    usersData: customUser,
 	};
 }
 

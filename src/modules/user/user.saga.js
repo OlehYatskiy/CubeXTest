@@ -1,28 +1,31 @@
 /* eslint-disable no-unused-vars,import/no-duplicates */
+import { todosRef } from "../config/firebase";
 import * as userAction from "./user.actions";
 import { takeEvery, put, select } from "redux-saga/effects";
 
+
 // import customToastify from "../../customFunction/customToastify";
-import { postRequest } from "../../api";
+// import { postRequest } from "../../api";
 
-function *getAllUser() {
-	try {
-		const result = yield postRequest("/getAllUsers", {
-		});
-
-		yield put(userAction.setAllUser(result));
-	} catch (error) {
-		if (!error) {
-			console.log(error);
-		} else {
-		}
-	}
-}
+// function *getAllUser() {
+// 	try {
+// 		const result = yield postRequest("/getAllUsers", {
+// 		});
+//
+// 		yield put(userAction.setAllUser(result));
+// 	} catch (error) {
+// 		if (!error) {
+// 			console.log(error);
+// 		} else {
+// 		}
+// 	}
+// }
 
 function *addNewUser(action) {//???
 	const payload = action.payload;
 	try {
-		yield postRequest('/getUsersDataBase', payload );
+		
+		yield todosRef.push().set(payload);
 		yield userAction.addNewUserStatus();
 
 	} catch (error) {

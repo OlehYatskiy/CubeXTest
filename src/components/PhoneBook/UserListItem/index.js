@@ -15,12 +15,18 @@ class UserListItem extends Component {
     userData: object,
 		index: string,
 		onUserClick: func,
+    onDeleteClick: func
 	}
 
   onUserItemClick = (index) => (event) => {
 		event.stopPropagation();
 		this.props.onUserClick(index);
 	}
+
+  onDeleteButtonClick = (index) => (event) => {
+    event.stopPropagation();
+    this.props.onDeleteClick(index); 
+  }
 
     render() {
       const { userData, index } = this.props;
@@ -31,7 +37,7 @@ class UserListItem extends Component {
             <List.Content>
               <List.Header>{`${userData.firstName} ${userData.lastName}`}</List.Header>
             </List.Content>
-            <Button floated='right' icon='delete'/>
+            <Button onClick={this.onDeleteButtonClick(index)} floated='right' icon='delete'/>
           </List.Item>
     )
   }

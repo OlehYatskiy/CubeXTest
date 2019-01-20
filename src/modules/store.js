@@ -1,23 +1,17 @@
-// import createSagaMiddleware from 'redux-saga';
-import { compose, createStore, combineReducers, applyMiddleware } from "redux";
-
+import reduxThunk from "redux-thunk";
+import { compose,
+	createStore,
+	combineReducers,
+	applyMiddleware
+} from "redux";
 import user from "./user/user.reducer";
+import customUser from "./user/customReducer";
 
-// import { watchUser } from "./user/user.saga";
-
-// const sagaMiddleware = createSagaMiddleware();
-
-const rootReducer = combineReducers({ user });
-
-/*const store = createStore(rootReducer, compose(
-	applyMiddleware(sagaMiddleware),
-	window.devToolsExtension ? window.devToolsExtension() : f => f
-))*/
+const rootReducer = combineReducers({ user, customUser });
 
 const store = createStore(rootReducer, compose(
+	applyMiddleware(reduxThunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f
-));
-// sagaMiddleware.run(watchUser);
-
+))
 
 export default store;
