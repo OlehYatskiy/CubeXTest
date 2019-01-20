@@ -34,7 +34,8 @@ class EditUserForm extends Component {
       invalidPhone: false,
       invalidEmail: false,
       invalidCompany: false,
-      disabledApllyButton: true
+      disabledApllyButton: true,
+      isEdit: false
     }
   }
 
@@ -61,11 +62,11 @@ class EditUserForm extends Component {
       disabledApllyButton
     } = this.state;
 
-    this.setState({
-      disabledApllyButton: invalidFirstName || invalidLastName ||
-        invalidAvatarUrl || invalidAvatarUrl ||
-        invalidPhone || invalidEmail || invalidCompany
-    });
+    this.setState( (state, props) => ({
+        disabledApllyButton: state.invalidFirstName || state.invalidLastName ||
+        state.invalidAvatarUrl || state.invalidAvatarUrl ||
+        state.invalidPhone || state.invalidEmail || state.invalidCompany
+      }));
   }
 
   onBlurHandler = (event) => {
@@ -78,8 +79,6 @@ class EditUserForm extends Component {
         [invalidVal]: event.target.value === '' ? true : false
       });
     }
-
-    this.isEnableApplyButton();
   }
 
   onFirstNameInputChange = (event) => {
@@ -93,6 +92,7 @@ class EditUserForm extends Component {
         (inputVal.length > 20 )) ||
         !inputVal ? true : false
     });
+    this.isEnableApplyButton();
   }
 
   onLastNameInputChange = (event) => {
@@ -106,6 +106,7 @@ class EditUserForm extends Component {
         (inputVal.length > 20 )) ||
         !inputVal ? true : false
     });
+    this.isEnableApplyButton();
   }
 
   onAvatarUrlInputChange = (event) => {
@@ -117,6 +118,7 @@ class EditUserForm extends Component {
       avatarUrl: inputVal,
       invalidAvatarUrl: avatarRegExp.test(inputVal) ? false : true
     });
+    this.isEnableApplyButton();
   }
 
   onPhoneInputChange = (event) => {
@@ -130,6 +132,7 @@ class EditUserForm extends Component {
         (inputVal.length > 12 )) ||
         !inputVal ? true : false
     });
+    this.isEnableApplyButton();
   }
 
   onEmailInputChange = (event) => {
@@ -142,6 +145,7 @@ class EditUserForm extends Component {
       invalidEmail: (emailRegExp.test(inputVal) ||
         (inputVal.length > 20 )) ? false : true
     });
+    this.isEnableApplyButton();
   }
 
   onCompanyInputChange = (event) => {
@@ -155,6 +159,7 @@ class EditUserForm extends Component {
         (inputVal.length > 20 )) ||
         !inputVal ? true : false
     });
+    this.isEnableApplyButton();
   }
 
   onApplyButtonClick = () => {

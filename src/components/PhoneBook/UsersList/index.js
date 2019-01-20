@@ -8,7 +8,8 @@ import {
   Input,
   Button,
   Grid,
-  Segment
+  Segment,
+  Loader
 } from 'semantic-ui-react';
 
 import UserListItem from '../UserListItem';
@@ -19,7 +20,8 @@ import * as userActions from "../../../modules/user/user.actions";
 class UsersList extends Component {
 
   state = {
-		searchInput: ""
+		searchInput: "",
+    loader: false
 	}
 
   static propTypes = {
@@ -52,7 +54,7 @@ class UsersList extends Component {
 
     render() {
       const { usersData } = this.props;
-      const { searchInput } = this.state;
+      const { searchInput, loader } = this.state;
 
       const regSearchInput = new RegExp(searchInput, 'i');
       const filteredValue = searchInput === "" ?
@@ -80,6 +82,7 @@ class UsersList extends Component {
                   </Grid.Column>
                 </Grid>
                 <List selection divided verticalAlign='middle'>
+                  <Loader active={loader} />
                   {
                     filteredValue.map((user) => {
                       return <UserListItem key={user.id}
