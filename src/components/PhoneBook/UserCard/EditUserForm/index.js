@@ -59,13 +59,21 @@ class EditUserForm extends Component {
       invalidPhone,
       invalidEmail,
       invalidCompany,
-      disabledApllyButton
+      disabledApllyButton,
+      firstName,
+      lastName,
+      avatarUrl,
+      phone,
+      email,
+      company
     } = this.state;
 
     this.setState( (state, props) => ({
         disabledApllyButton: state.invalidFirstName || state.invalidLastName ||
         state.invalidAvatarUrl || state.invalidAvatarUrl ||
-        state.invalidPhone || state.invalidEmail || state.invalidCompany
+        state.invalidPhone || state.invalidEmail || state.invalidCompany ||
+        !state.firstName || !state.lastName || !state.avatarUrl || !state.phone ||
+        !state.email || !state.company
       }));
   }
 
@@ -79,6 +87,7 @@ class EditUserForm extends Component {
         [invalidVal]: event.target.value === '' ? true : false
       });
     }
+    this.isEnableApplyButton();
   }
 
   onFirstNameInputChange = (event) => {
