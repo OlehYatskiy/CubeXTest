@@ -11,17 +11,17 @@ import {
   Segment,
   Loader
 } from 'semantic-ui-react';
+import classes from './index.less';
 
 import UserListItem from '../UserListItem';
 
 import * as userActions from "../../../modules/user/user.actions";
 
-
 class UsersList extends Component {
 
   state = {
 		searchInput: "",
-    loader: false
+    loader: true
 	}
 
   static propTypes = {
@@ -30,6 +30,7 @@ class UsersList extends Component {
     selectUser: func,
     toggleUserCard: func,
     removeUser: func,
+    fetchUsersStatus: string
 	}
 
   componentDidMount() {
@@ -53,7 +54,7 @@ class UsersList extends Component {
   }
 
     render() {
-      const { usersData } = this.props;
+      const { usersData, fetchUsersStatus } = this.props;
       const { searchInput, loader } = this.state;
 
       const regSearchInput = new RegExp(searchInput, 'i');
@@ -67,40 +68,45 @@ class UsersList extends Component {
         );
 
         return (
-          <Grid centered>
-            <Grid.Row stretched>
-              <Grid.Column widescreen={8} mobile={12} computer={8}>
-                <Grid centered>
-                  <Grid.Column widescreen={8} mobile={16} computer={8}>
-                    <Input
-                      onChange={this.onInputChange}
-                      icon={{ name: 'search', circular: true, link: true }}
-                      placeholder='Search...'
-                      fluid
-                       >
-                    </Input>
-                  </Grid.Column>
-                </Grid>
-                <List selection divided verticalAlign='middle'>
-                  <Loader active={loader} />
-                  {
-                    filteredValue.map((user) => {
-                      return <UserListItem key={user.id}
-                          onUserClick={this.onUserClick}
-                          onDeleteClick={this.onDeleteClick}
-                          index={user.id}
-                          userData={user}
-                        />
-                    })
-                  }
-                </List>
-                <Container textAlign='center'>
-                  <Button onClick={this.props.toggleUserCard}
-                    circular
-                    basic
-                    icon='plus'
-                    />
-                </Container>
+          <Grid centered padded>
+            <Grid.Row >
+              <Grid.Column widescreen={8} mobile={12} computer={8} >
+                <div className={classes.userList}>
+                  <Grid centered className={classes.userListSearchInput}>
+                    <Grid.Column widescreen={8} mobile={16} computer={8}>
+                      <Input
+                        onChange={this.onInputChange}
+                        icon={{ name: 'search', circular: true, link: true }}
+                        placeholder='Search...'
+                        fluid
+                         >
+                      </Input>
+                    </Grid.Column>
+                  </Grid>
+                  <List selection divided verticalAlign='middle' className={classes.userListList}>
+                    {
+                      fetchUsersStatus === "success"
+                      ?
+                      filteredValue.map((user) => {
+                        return <UserListItem key={user.id}
+                            onUserClick={this.onUserClick}
+                            onDeleteClick={this.onDeleteClick}
+                            index={user.id}
+                            userData={user}
+                          />
+                        })
+                      :
+                      <Loader active={loader} />
+                    }
+                  </List>
+                  <Segment textAlign='center' basic >
+                    <Button onClick={this.props.toggleUserCard}
+                      circular
+                      basic
+                      icon='plus'
+                      />
+                  </Segment>
+                </div>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -111,7 +117,8 @@ class UsersList extends Component {
 function mapStateToProps({ user, customUser }) {
 	return {
     selectUser: user.selectUser,
-    usersData: customUser.users
+    usersData: customUser.users,
+    fetchUsersStatus: customUser.fetchUsersStatus
 	};
 }
 

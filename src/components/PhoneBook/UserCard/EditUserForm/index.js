@@ -4,7 +4,14 @@ import { connect } from "react-redux";
 
 import * as userActions from "../../../../modules/user/user.actions";
 
-import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
+import { Image,
+  Segment,
+  Button,
+  Input,
+  Grid,
+  Label,
+  Container } from 'semantic-ui-react'
+import classes from "./index.less";
 
 class EditUserForm extends Component {
 
@@ -220,62 +227,93 @@ class EditUserForm extends Component {
       } = this.state;
 
       return (
-        <Segment.Group>
-          <Segment basic floated='right'>
-            Firstname:
-            <Input onChange={this.onFirstNameInputChange}
-              onBlur={this.onBlurHandler}
-              ref={this.handleRef}
-              name='firstName'
-              defaultValue={firstName}
-              error={invalidFirstName}
-              />
-          </Segment>
-          <Segment basic floated='right'>
-            Lastname:
-            <Input onChange={this.onLastNameInputChange}
-              onBlur={this.onBlurHandler}
-              name='lastName'
-              defaultValue={lastName}
-              error={invalidLastName}
-              />
-          </Segment>
-          <Segment basic floated='right'>
-            AvatarUrl:
-            <Input onChange={this.onAvatarUrlInputChange}
-              onBlur={this.onBlurHandler}
-              name='avatarUrl'
-              defaultValue={avatarUrl}
-              error={invalidAvatarUrl}
-              />
-          </Segment>
-          <Segment basic floated='right'>
-            Phone number:
-            <Input onChange={this.onPhoneInputChange}
-              onBlur={this.onBlurHandler}
-              name='phone'
-              defaultValue={phone}
-              error={invalidPhone}
-              />
-          </Segment>
-          <Segment basic floated='right'>
-            Email:
-            <Input onChange={this.onEmailInputChange}
-              onBlur={this.onBlurHandler}
-              name='email'
-              defaultValue={email}
-              error={invalidEmail}
-              />
-          </Segment>
-          <Segment basic floated='right'>
-            Company:
-            <Input onChange={this.onCompanyInputChange}
-              onBlur={this.onBlurHandler}
-              name='company'
-              defaultValue={company}
-              error={invalidCompany}
-              />
-          </Segment>
+        <Fragment>
+          <Grid stackable columns={2}>
+            <Grid.Column textAlign="right">
+              <Segment.Group >
+                <Segment basic>
+                  <Label
+                    content={"Firstname:"}
+                    className={classes.inputLabel}
+                    basic
+                    attached='top'
+                    />
+                  <Input onChange={this.onFirstNameInputChange}
+                    onBlur={this.onBlurHandler}
+                    ref={this.handleRef}
+                    name='firstName'
+                    defaultValue={firstName}
+                    error={invalidFirstName}
+                    />
+                </Segment>
+                <Segment basic>
+                  <Label
+                    content={"Lastname:"}
+                    className={classes.inputLabel}
+                    basic
+                    attached='top'
+                    />
+                  <Input onChange={this.onLastNameInputChange}
+                    onBlur={this.onBlurHandler}
+                    name='lastName'
+                    defaultValue={lastName}
+                    error={invalidLastName}
+                    />
+                </Segment>
+                <Segment basic>
+                  <Label
+                    content={"AvatarUrl:"}
+                    className={classes.inputLabel}
+                    basic
+                    attached='top'
+                    />
+                  <Input onChange={this.onAvatarUrlInputChange}
+                    onBlur={this.onBlurHandler}
+                    name='avatarUrl'
+                    defaultValue={avatarUrl}
+                    error={invalidAvatarUrl}
+                    />
+                </Segment>
+              </Segment.Group>
+            </Grid.Column>
+            <Grid.Column textAlign="right">
+              <Segment.Group>
+                <Segment basic>
+                  <Container textAlign="left">
+                    Phone number:
+                  </Container>
+                  <Input onChange={this.onPhoneInputChange}
+                    onBlur={this.onBlurHandler}
+                    name='phone'
+                    defaultValue={phone}
+                    error={invalidPhone}
+                    />
+                </Segment>
+                <Segment basic>
+                  <Container textAlign="left">
+                    Email:
+                  </Container>
+                  <Input onChange={this.onEmailInputChange}
+                    onBlur={this.onBlurHandler}
+                    name='email'
+                    defaultValue={email}
+                    error={invalidEmail}
+                    />
+                </Segment>
+                <Segment basic>
+                  <Container textAlign="left">
+                    Company:
+                  </Container>
+                  <Input onChange={this.onCompanyInputChange}
+                    onBlur={this.onBlurHandler}
+                    name='company'
+                    defaultValue={company}
+                    error={invalidCompany}
+                    />
+                </Segment>
+              </Segment.Group>
+            </Grid.Column>
+          </Grid>
           <Segment basic floated='right'>
             <Button onClick={renderEditUserForm}
               basic
@@ -288,7 +326,7 @@ class EditUserForm extends Component {
               color='green'
               />
           </Segment>
-        </Segment.Group>
+      </Fragment>
       )}
 }
 

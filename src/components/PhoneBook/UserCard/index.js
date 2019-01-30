@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import EditUserForm from './EditUserForm';
 import * as userActions from "../../../modules/user/user.actions";
 
-import { Card, Image, Segment, Button, Input } from 'semantic-ui-react'
+import { Card, Image, Segment, Button, Input, Grid } from 'semantic-ui-react'
 import defaultAv from '../../../img/default_av.png';
 
 
@@ -48,41 +48,49 @@ class UserCard extends Component {
        defaultAv : usersData[selectedUserDataIndex].avatarUrl;
 
       return (
-        <Card centered>
-          <Image fluid src={avatar} />
-          <Card.Content>
-            {
-              showEditUserForm === false ?
-              <Fragment>
-                <Card.Header>
-                  {
-                    `${usersData[selectedUserDataIndex].firstName}
-                     ${usersData[selectedUserDataIndex].lastName}`
-                  }
-                </Card.Header>
-                <Segment.Group>
-                  <Segment>{usersData[selectedUserDataIndex].phone}</Segment>
-                  <Segment>{usersData[selectedUserDataIndex].email}</Segment>
-                  <Segment>{usersData[selectedUserDataIndex].company}</Segment>
-                </Segment.Group>
-                <Button onClick={this.onHideUserCard}
-                  floated='left'
-                  icon='arrow left'
-                  />
-                <Button onClick={this.onShowEditUserForm}
-                  floated='right'
-                  content='Edit'
-                  icon='pencil alternate'
-                  labelPosition='left'
-                  />
-              </Fragment>
-              :
-              <EditUserForm renderEditUserForm={this.onShowEditUserForm}
-                currentUser={usersData[selectedUserDataIndex]}
-                 />
-            }
-          </Card.Content>
-        </Card>
+        <Grid centered>
+          <Grid.Column computer={9} tablet={12} mobile={16}>
+            <Card fluid>
+              <Grid centered>
+                <Grid.Column mobile={16} tablet={8} computer={7}>
+                  <Image centered fluid src={avatar} />
+                </Grid.Column>
+              </Grid>
+              <Card.Content>
+                {
+                  showEditUserForm === false ?
+                  <Fragment>
+                    <Card.Header>
+                      {
+                        `${usersData[selectedUserDataIndex].firstName}
+                         ${usersData[selectedUserDataIndex].lastName}`
+                      }
+                    </Card.Header>
+                    <Segment.Group>
+                      <Segment>{usersData[selectedUserDataIndex].phone}</Segment>
+                      <Segment>{usersData[selectedUserDataIndex].email}</Segment>
+                      <Segment>{usersData[selectedUserDataIndex].company}</Segment>
+                    </Segment.Group>
+                    <Button onClick={this.onHideUserCard}
+                      floated='left'
+                      icon='arrow left'
+                      />
+                    <Button onClick={this.onShowEditUserForm}
+                      floated='right'
+                      content='Edit'
+                      icon='pencil alternate'
+                      labelPosition='left'
+                      />
+                  </Fragment>
+                  :
+                  <EditUserForm renderEditUserForm={this.onShowEditUserForm}
+                    currentUser={usersData[selectedUserDataIndex]}
+                     />
+                }
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid>
       )}
 }
 

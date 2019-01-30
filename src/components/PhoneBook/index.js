@@ -9,7 +9,7 @@ import classes from './index.less';
 class PhoneBook extends Component {
 
   state = {
-    userCard: false
+    userCard: true//false
   }
 
   toggleUserCard = (id) => {
@@ -22,8 +22,8 @@ class PhoneBook extends Component {
       const { userCard } = this.state;
 
         return (
-          <Grid centered className={classes.phoneBook}>
-            <Grid.Column mobile={16}>
+          <Grid stretched centered className={classes.phoneBook}>
+            <Grid.Column stretched mobile={16}>
               {
                  userCard ?
                  <UserCard toggleUserCard={this.toggleUserCard} />

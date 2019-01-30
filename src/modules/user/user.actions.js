@@ -1,6 +1,6 @@
 import { createAction } from "redux-act";
 import { usersRef } from "../config/firebase";
-import { FETCH_USERS, ADDING_USERS, EDIT_USERS } from "./types";
+import { FETCH_USERS, ADDING_USERS, EDIT_USERS, FETCH_USERS_STATUS } from "./types";
 
 // initialize
 export const selectUser = createAction("select user");
@@ -52,6 +52,10 @@ export const removeUser = removeUserId => async dispatch => {
   usersRef.child(removeUserId).remove();
 };
 export const fetchUsers = () => async dispatch => {
+  dispatch({
+    type: FETCH_USERS_STATUS,
+    payload: "pending"
+  });
   usersRef.on("value", snapshot => {
     dispatch({
       type: FETCH_USERS,
