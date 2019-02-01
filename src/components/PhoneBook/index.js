@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import UsersList from './UsersList';
 import UserCard from './UserCard';
 
-import { Grid } from 'semantic-ui-react'
+import { Grid, Visibility } from 'semantic-ui-react'
 import classes from './index.less';
 
 class PhoneBook extends Component {
 
   state = {
-    userCard: true//false
+    userCard: false,
+    width: 768
   }
 
   toggleUserCard = (id) => {
@@ -18,20 +19,29 @@ class PhoneBook extends Component {
     });
   }
 
+  handleUpdate = (e, { calculations }) => this.setState({ width: calculations.width });
+
     render() {
-      const { userCard } = this.state;
+      const { userCard, width } = this.state;
 
         return (
-          <Grid stretched centered className={classes.phoneBook}>
-            <Grid.Column stretched mobile={16}>
-              {
-                 userCard ?
-                 <UserCard toggleUserCard={this.toggleUserCard} />
-                 :
-                 <UsersList toggleUserCard={this.toggleUserCard} />
-              }
-            </Grid.Column>
-          </Grid>
+          <Visibility onUpdate={this.handleUpdate}>
+            <Grid stretched columns="equal" className={classes.phoneBook}>
+              <Grid.Column stretched mobile={16} tablet={6} computer={5}>
+                {
+                  userCard && (width < 768 ) ?
+                  <UserCard toggleUserCard={this.toggleUserCard} />
+                  :
+                  <UsersList toggleUserCard={this.toggleUserCard} />
+                }
+              </Grid.Column>
+              <Grid.Column stretched only="tablet computer">
+                {
+                  userCard && <UserCard toggleUserCard={this.toggleUserCard} />
+                }
+              </Grid.Column>
+            </Grid>
+          </Visibility>
     )
   }
 }

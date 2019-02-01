@@ -23,8 +23,10 @@ class UserCard extends Component {
 	}
 
   componentWillUnmount() {
-    this.props.unselectUser();
+    // this.props.unselectUser();
   }
+
+
 
   onShowEditUserForm = () => {
     if (this.props.selectUserID === null) {this.onHideUserCard()};
@@ -35,6 +37,7 @@ class UserCard extends Component {
 
   onHideUserCard = () => {
     this.props.toggleUserCard(false);
+    this.props.unselectUser();
   }
 
     render() {
@@ -45,20 +48,24 @@ class UserCard extends Component {
   			return user.id === selectUserID;
   		});
       const avatar = selectedUserDataIndex === -1 ?
-       defaultAv : usersData[selectedUserDataIndex].avatarUrl;
+       defaultAv :
+       usersData[selectedUserDataIndex].avatarUrl;
+
+      // if (selectUserID === null) this.onShowEditUserForm();
+      console.log(selectUserID);
 
       return (
-        <Grid centered>
-          <Grid.Column computer={9} tablet={12} mobile={16}>
+        <Grid stretched>
+          <Grid.Column mobile={16}>
             <Card fluid>
               <Grid centered>
-                <Grid.Column mobile={16} tablet={8} computer={7}>
+                <Grid.Column mobile={16} tablet={8} computer={5}>
                   <Image centered fluid src={avatar} />
                 </Grid.Column>
               </Grid>
-              <Card.Content>
+              <Card.Content style={{ borderTop: 'none' }}>
                 {
-                  showEditUserForm === false ?
+                  (showEditUserForm === false) && (selectUserID !== null) ?
                   <Fragment>
                     <Card.Header>
                       {
@@ -73,6 +80,7 @@ class UserCard extends Component {
                     </Segment.Group>
                     <Button onClick={this.onHideUserCard}
                       floated='left'
+                      attached='bottom'
                       icon='arrow left'
                       />
                     <Button onClick={this.onShowEditUserForm}

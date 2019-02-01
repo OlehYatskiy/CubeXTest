@@ -28,6 +28,7 @@ class UsersList extends Component {
     usersData: array,
     fetchUsers: func,
     selectUser: func,
+    unselectUser: func,
     toggleUserCard: func,
     removeUser: func,
     fetchUsersStatus: string
@@ -53,6 +54,11 @@ class UsersList extends Component {
     this.props.fetchUsers();
   }
 
+  onAddUserClick = () => {
+    this.props.unselectUser();
+    this.props.toggleUserCard(true);
+  }
+
     render() {
       const { usersData, fetchUsersStatus } = this.props;
       const { searchInput, loader } = this.state;
@@ -69,46 +75,44 @@ class UsersList extends Component {
 
         return (
           <Grid centered padded>
-            <Grid.Row >
-              <Grid.Column widescreen={8} mobile={12} computer={8} >
-                <div className={classes.userList}>
-                  <Grid centered className={classes.userListSearchInput}>
-                    <Grid.Column widescreen={8} mobile={16} computer={8}>
-                      <Input
-                        onChange={this.onInputChange}
-                        icon={{ name: 'search', circular: true, link: true }}
-                        placeholder='Search...'
-                        fluid
-                         >
-                      </Input>
-                    </Grid.Column>
-                  </Grid>
-                  <List selection divided verticalAlign='middle' className={classes.userListList}>
-                    {
-                      fetchUsersStatus === "success"
-                      ?
-                      filteredValue.map((user) => {
-                        return <UserListItem key={user.id}
-                            onUserClick={this.onUserClick}
-                            onDeleteClick={this.onDeleteClick}
-                            index={user.id}
-                            userData={user}
-                          />
-                        })
-                      :
-                      <Loader active={loader} />
-                    }
-                  </List>
-                  <Segment textAlign='center' basic >
-                    <Button onClick={this.props.toggleUserCard}
-                      circular
-                      basic
-                      icon='plus'
-                      />
-                  </Segment>
-                </div>
-              </Grid.Column>
-            </Grid.Row>
+            <Grid.Column mobile={14} computer={16} >
+              <div className={classes.userList}>
+                <Grid centered className={classes.userListSearchInput}>
+                  <Grid.Column mobile={14} computer={12}>
+                    <Input
+                      onChange={this.onInputChange}
+                      icon={{ name: 'search', circular: true, link: true }}
+                      placeholder='Search...'
+                      fluid
+                       >
+                    </Input>
+                  </Grid.Column>
+                </Grid>
+                <List selection divided verticalAlign='middle' className={classes.userListList}>
+                  {
+                    fetchUsersStatus === "success"
+                    ?
+                    filteredValue.map((user) => {
+                      return <UserListItem key={user.id}
+                          onUserClick={this.onUserClick}
+                          onDeleteClick={this.onDeleteClick}
+                          index={user.id}
+                          userData={user}
+                        />
+                      })
+                    :
+                    <Loader active={loader} />
+                  }
+                </List>
+                <Segment textAlign='center' basic >
+                  <Button onClick={this.onAddUserClick}
+                    circular
+                    basic
+                    icon='plus'
+                    />
+                </Segment>
+              </div>
+            </Grid.Column>
           </Grid>
     )
   }
